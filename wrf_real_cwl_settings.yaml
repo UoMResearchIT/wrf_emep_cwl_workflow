@@ -1,0 +1,23 @@
+realcores: 4
+
+wrfcores: 8
+
+namelist:
+  class: File
+  path: 'namelist_cwl_dir/namelist.input'
+
+metdir:
+  class: Directory
+  path: 'met_files'
+    
+rundir:
+  class: Directory
+  path: 'run_template'
+  
+wrfinputs:
+  - class: File
+    path: 'wrfinput_d01'
+
+wrfbdys:
+  - class: File
+    path: 'wrfbdy_d01'
