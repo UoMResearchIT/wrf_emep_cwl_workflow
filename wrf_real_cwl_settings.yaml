@@ -1,3 +1,5 @@
+generate_rundir: true
+
 realcores: 4
 
 wrfcores: 8

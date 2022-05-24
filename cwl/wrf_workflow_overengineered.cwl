@@ -32,6 +32,7 @@ outputs:
 
 steps:
   step0_rundir:
+    when: $(inputs.generate_rundir)
     run: create_run_dir.cwl
     in:
       generate_rundir: generate_rundir
@@ -42,7 +43,11 @@ steps:
     in:
       namelist: namelist
       metdir: metdir
-      rundir: step0_rundir/rundir
+      rundir:
+        source:
+          - step0_rundir/rundir
+          - rundir
+        pickValue: first_non_null
       cores: realcores
     out: [output_wrfinput, output_wrfbdy]
     
@@ -52,6 +57,10 @@ steps:
       namelist: namelist
       wrfinputs: step3_real/output_wrfinput
       wrfbdys: step3_real/output_wrfbdy
-      rundir: step0_rundir/rundir
+      rundir:
+        source:
+          - step0_rundir/rundir
+          - rundir
+        pickValue: first_non_null
       cores: wrfcores
     out: [output_wrfout]
