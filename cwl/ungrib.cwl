@@ -9,16 +9,18 @@ doc: |
 
 hints:
   DockerRequirement:
-    dockerPull: oliverwoolland/wrf-docker:latest
+    dockerPull: oliverwoolland/wrf_wps:latest
     
 requirements:
   LoadListingRequirement:
     loadListing: shallow_listing
   InitialWorkDirRequirement:
     listing:
-      - $(inputs.vtable)
-      - $(inputs.namelist)
-      - $(inputs.grib_dir.listing)
+      - entry: $(inputs.vtable)
+        entryname: Vtable
+      - entry: $(inputs.namelist)
+        entryname: namelist.wps
+      - entry: $(inputs.grib_dir.listing)
 
 inputs:
 
