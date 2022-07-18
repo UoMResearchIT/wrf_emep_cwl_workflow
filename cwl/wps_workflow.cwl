@@ -33,25 +33,38 @@ inputs:
       items: File
   outname_sfc: string
 
+  namelist_metgrid_uk3km:
+    label: metgrid configuration
+    type: File
+  geo_file_uk3km:
+    label: geogrid data file
+    type: File
 
-    
+  generate_metdir: boolean
     
 outputs:
-  procfiles_sfc:
+  logfiles:
+    label: log files
+    type:
+      type: array
+      items: File
+    outputSource: step3_metgrid/logfile
+  metfiles:
     label: output files
     type:
       type: array
       items: File
-    outputSource: step2b_ungrib_sfc/procfiles
-  procfiles_atm:
-    label: output files
-    type:
-      type: array
-      items: File
-    outputSource: step2a_ungrib_atm/procfiles
+    outputSource: step3_metgrid/metfiles
 
 
 steps:
+  step0_metdir:
+    run: create_metgrid_dir.cwl
+    in:
+      generate_metdir: generate_metdir
+    out: [metdir]
+
+
   step1a_linkgrib_atm:
     run: link_grib_tool.cwl
     in:
@@ -83,3 +96,13 @@ steps:
       outname: outname_sfc
     out: [procfiles]
 
+
+  step3_metgrid:
+    run: metgrid.cwl
+    in:
+      namelist: namelist_metgrid_uk3km
+      geofile: geo_file_uk3km
+      ungribbed_files_a: step2a_ungrib_atm/procfiles
+      ungribbed_files_b: step2b_ungrib_sfc/procfiles
+      metdir: step0_metdir/metdir
+    out: [logfile, metfiles]
