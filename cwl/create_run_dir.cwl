@@ -17,7 +17,7 @@ doc: |
   to your main workflow. 
 hints:
   DockerRequirement:
-    dockerPull: oliverwoolland/wrf-docker:latest
+    dockerPull: oliverwoolland/wrf_wps:latest
 
 
 inputs:
