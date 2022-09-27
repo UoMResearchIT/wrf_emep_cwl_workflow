@@ -33,10 +33,10 @@ inputs:
       items: File
   outname_sfc: string
 
-  namelist_metgrid_uk3km:
+  namelist_metgrid_uk9km:
     label: metgrid configuration
     type: File
-  geo_file_uk3km:
+  geo_file_uk9km:
     label: geogrid data file
     type: File
 
@@ -100,8 +100,8 @@ steps:
   step3_metgrid:
     run: metgrid.cwl
     in:
-      namelist: namelist_metgrid_uk3km
-      geofile: geo_file_uk3km
+      namelist: namelist_metgrid_uk9km
+      geofile: geo_file_uk9km
       ungribbed_files_a: step2a_ungrib_atm/procfiles
       ungribbed_files_b: step2b_ungrib_sfc/procfiles
       metdir: step0_metdir/metdir

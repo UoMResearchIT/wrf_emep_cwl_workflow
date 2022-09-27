@@ -20,7 +20,8 @@ requirements:
   InitialWorkDirRequirement:
     listing:
       - $(inputs.rundir.listing)
-      - $(inputs.namelist)
+      - entry: $(inputs.namelist)
+        entryname: namelist.input
       - $(inputs.wrfinputs)
       - $(inputs.wrfbdys)
 
