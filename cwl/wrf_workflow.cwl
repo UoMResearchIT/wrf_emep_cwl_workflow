@@ -22,6 +22,12 @@ inputs:
     
     
 outputs:
+  wrflogs:
+    label: wrf logfiles
+    type:
+      type: array
+      items: File
+    outputSource: step4_wrf/output_logs
   wrfout:
     label: output files
     type:
@@ -44,7 +50,7 @@ steps:
       metdir: metdir
       rundir: step0_rundir/rundir
       cores: realcores
-    out: [output_wrfinput, output_wrfbdy]
+    out: [output_wrfinput, output_wrfbdy, output_logs]
     
   step4_wrf:
     run: wrf.cwl
@@ -54,4 +60,4 @@ steps:
       wrfbdys: step3_real/output_wrfbdy
       rundir: step0_rundir/rundir
       cores: wrfcores
-    out: [output_wrfout]
+    out: [output_wrfout, output_logs]
