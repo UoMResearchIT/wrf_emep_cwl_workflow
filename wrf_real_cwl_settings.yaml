@@ -1,16 +1,16 @@
 generate_rundir: true
 
-realcores: 4
+realcores: 2
 
-wrfcores: 8
+wrfcores: 2
 
 namelist:
   class: File
-  path: 'namelist_cwl_dir/namelist.input'
+  path: 'real_wrf_test_input/namelist.input.uk9km'
 
 metdir:
   class: Directory
-  path: 'met_files'
+  path: 'real_wrf_test_input/met_files'
     
 rundir:
   class: Directory
