@@ -34,17 +34,13 @@ grib_files_sfc:
     path: 'ungrib_test_input/surface_201901.grib'
 
 
-geo_file_uk3km:
+geo_file_uk9km:
   class: File
-  path: 'ungrib_test_input/geo_em.d01.nc.UK_3km'
+  path: 'ungrib_test_input/geo_em.d01.nc.UK_9km'
 
-namelist_metgrid_uk3km:
+namelist_metgrid_uk9km:
   class: File
-  path: 'ungrib_test_input/namelist.wps.emep_uk3km'
-
-namelist_metgrid_uk3km_failure:
-  class: File
-  path: 'ungrib_test_input/namelist.wps.emep_uk3km_failure'
+  path: 'ungrib_test_input/namelist.wps.emep_uk9km'
 
 
 geo_file_emep50km:
