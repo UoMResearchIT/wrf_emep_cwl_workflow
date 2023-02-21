@@ -3,8 +3,22 @@ class: CommandLineTool
 baseCommand: ["python3", "era5_script.py"]
 
 doc: |
-  This tool should download ERA5 data from the CDS service.
-  The user will need to pre-register with the CDS service before using this tool.
+  This tool should download ERA5 data from the CDS service. The user will 
+  need to pre-register with the CDS service before using this tool. 
+  See instructions at: https://cds.climate.copernicus.eu/api-how-to
+  
+  The required inputs are:
+    - cdskey: file containing the CDS API key
+    - start/end year/month/day: variables defining start and end dates 
+      (can be same day)
+    - latitude / longitude edges for domain
+  
+  Outputs:
+    - surface level data (6 hourly, each day, full resolution)
+    - pressure level data (6 hourly, each day, 0.5 x 0.5 degree resolution)
+  
+  If different variables, pressure levels, or output times are needed then
+  the enclosed python script template can be modified by hand.
 
 hints:
   SoftwareRequirement:
@@ -72,11 +86,13 @@ requirements:
                           '1000',
                       ],
                       'time': [
-                          '00:00', '06:00', '12:00',
-                          '18:00',
+                          '00:00', '06:00', '12:00', '18:00',
                       ],
-                      'area': [90, -180, 15, 180],
-                      'grid': [0.5,0.5],
+                      'area': [
+                          $(inputs.upper_latitude), $(inputs.left_longitude), 
+                          $(inputs.lower_latitude), $(inputs.right_longitude),
+                      ],
+                      'grid': [0.5, 0.5],
                   },
                   "preslev_"+strdate+".grib")
 
@@ -99,10 +115,12 @@ requirements:
                           'volumetric_soil_water_layer_3', 'volumetric_soil_water_layer_4',
                       ],
                       'time': [
-                          '00:00', '06:00', '12:00',
-                          '18:00',
+                          '00:00', '06:00', '12:00', '18:00',
                       ],
-                      'area': [90, -180, 15,180],
+                      'area': [
+                          $(inputs.upper_latitude), $(inputs.left_longitude), 
+                          $(inputs.lower_latitude), $(inputs.right_longitude),
+                      ],
                   },
                   "surface_"+strdate+".grib")
 
@@ -121,11 +139,22 @@ inputs:
   end_year: int
   end_month: int
   end_day: int
+  north_latitude: int
+  south_latitude: int
+  west_longitude: int
+  east_longitude: int
+  
 
 outputs:
-  grib_files:
+  grib_files_atm:
     type:
       type: array
       items: File
     outputBinding:
-      glob: "*grib"
+      glob: "preslev*grib"
+  grib_files_sfc:
+    type:
+      type: array
+      items: File
+    outputBinding:
+      glob: "surface*grib"
