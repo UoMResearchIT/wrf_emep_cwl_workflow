@@ -1,0 +1,8 @@
+name: cwl
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - cwltool
+  - galaxy-tool-util
+prefix: /home/mbessdl2/miniconda3/envs/cwl

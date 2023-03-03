@@ -6,8 +6,13 @@ Requirements:
 
 * docker
 * CWL (use `conda` to install `cwltool` from `conda-forge` channel)
+  * `conda env create --file environment.yml --name cwl`
 * example data: https://www.dropbox.com/s/d1y405qs4c477ol/wps_wrf_uk9km_example_input.tar.gz
   * download and extract in your repository directory, this will create the `ungrib_test_input` and `real_wrf_test_input` input directories.
+
+Running the ERA5 download tool:
+* Ensure to register for CDS service
+* `cwltool --beta-dependency-resolvers-configuration ./dependency-resolvers-conf.yml cwl/era5_download.cwl --start_year 2017 --start_month 3 --start_day 3 --end_year 2017 --end_month 3 --end_day 3`
 
 Running the Workflows:
 
