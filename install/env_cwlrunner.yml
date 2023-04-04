@@ -1,0 +1,7 @@
+name: cwl
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - cwltool
+  - galaxy-tool-util

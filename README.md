@@ -3,19 +3,24 @@
 Example CWL workflow and tool descriptors for running WPS and WRF.
 
 Requirements:
-
-* docker
-* CWL (use `conda` to install `cwltool` from `conda-forge` channel)
-  * `conda env create --file environment.yml --name cwl`
-* example data: https://www.dropbox.com/s/d1y405qs4c477ol/wps_wrf_uk9km_example_input.tar.gz
+* docker or singularity
+* CWL
+* Toil - optional, for running on HPC systems
+* example data: `https://www.dropbox.com/s/d1y405qs4c477ol/wps_wrf_uk9km_example_input.tar.gz`
   * download and extract in your repository directory, this will create the `ungrib_test_input` and `real_wrf_test_input` input directories.
+
+CWL / Toil Installation:
+* CWL only:
+  * `conda env create --file install/env_cwlrunner.yml --name cwl`
+* Toil/CWL:
+  * `conda env create --file install/env_toil.yml --name toil`
+
 
 Running the ERA5 download tool:
 * Ensure to register for CDS service
 * `cwltool --beta-dependency-resolvers-configuration ./dependency-resolvers-conf.yml cwl/era5_download.cwl --start_year 2017 --start_month 3 --start_day 3 --end_year 2017 --end_month 3 --end_day 3`
 
 Running the Workflows:
-
 * `cwltool --relax-path-checks cwl/wps_workflow.cwl wps_cwl_settings.yaml`
 * `cwltool --relax-path-checks cwl/wrf_workflow.cwl wrf_real_cwl_settings.yaml`
 
